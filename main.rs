@@ -1,7 +1,7 @@
 extern crate serialport;
 
 use serialport::prelude::*;
-use std::io::{self};
+use std::io;
 use std::time::Duration;
 
 mod list_ports;
@@ -30,7 +30,7 @@ fn main() {
                         let pm25 = (buffer[3] as f32 * 256. + buffer[2] as f32) / 10.0;
                         let pm10 = (buffer[5] as f32 * 256. + buffer[4] as f32) / 10.0;
                         println!("data = pm2.5: {}, pm10: {}", pm25, pm10);
-                    },
+                    }
                     Err(ref e) if e.kind() == io::ErrorKind::TimedOut => (),
                     Err(e) => eprintln!("{:?}", e),
                 }
