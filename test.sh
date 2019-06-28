@@ -1,5 +1,5 @@
 # !/bin/sh
-HOST="pi@192.168.1.229"
+HOST="pi"
 DIR="/home/pi/dev"
 
 # sync dir to pi
