@@ -6,7 +6,7 @@ DIR="/home/pi/dev"
 rsync -avz --delete --exclude=.git --exclude=target . $HOST:$DIR
 
 # ssh to pi, compile, and run
-ssh -q $HOST << ENDSSH
-cd "$DIR"
-cargo run
+ssh -qT $HOST << ENDSSH
+cd $DIR
+python3.7 -u ./main.py
 ENDSSH
