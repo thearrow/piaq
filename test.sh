@@ -3,7 +3,7 @@ HOST="pi"
 DIR="/home/pi/dev"
 
 # sync dir to pi
-rsync -avz --delete --exclude=.git --exclude=target . $HOST:$DIR
+rsync -avz --delete --exclude=.git --exclude=target --exclude=__pycache__ . $HOST:$DIR
 
 # ssh to pi, compile, and run
 ssh -tt $HOST << ENDSSH
