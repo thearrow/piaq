@@ -51,8 +51,8 @@ class SDS011(object):
         """Read reply from device."""
         raw = self.ser.read(size=10)
         data = raw[2:8]
-        if (sum(d for d in data) & 255) != raw[8]:
-            return None  # TODO: also check cmd id
+        # if (sum(d for d in data) & 255) != raw[8]:
+        # return None  # TODO: also check cmd id
         return raw
 
     def cmd_begin(self):
@@ -171,6 +171,7 @@ class SDS011(object):
 def get_pm_sensor():
     try:
         pm_sensor = SDS011("/dev/ttyUSB0", use_query_mode=True)
+        pm_sensor.sleep(sleep=False)
     except IOError:
         pm_sensor = None
     return pm_sensor

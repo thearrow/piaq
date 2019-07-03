@@ -47,6 +47,7 @@ def main():
     except KeyboardInterrupt:
         tl.stop()
         oled_shutdown(oled)
+        pm_sensor.sleep()
         logger.info("Shutting Down...")
     sys.exit(0)
 
