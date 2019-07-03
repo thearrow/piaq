@@ -166,3 +166,19 @@ class SDS011(object):
             if d[0:1] == b"\xc0":
                 data = self._process_frame(byte + d)
                 return data
+
+
+def get_pm_sensor():
+    try:
+        pm_sensor = SDS011("/dev/ttyUSB0", use_query_mode=True)
+    except IOError:
+        pm_sensor = None
+    return pm_sensor
+
+
+def get_pm_data(pm_sensor):
+    if pm_sensor:
+        pm_data = pm_sensor.query()
+        return pm_data[0], pm_data[1]
+    else:
+        return 0.0, 0.0

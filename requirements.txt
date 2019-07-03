@@ -1,3 +1,4 @@
 bme680==1.0.5
+ltr559==0.0.4
 pyserial==3.4
 timeloop==1.0.2
