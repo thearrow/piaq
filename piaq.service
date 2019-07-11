@@ -1,0 +1,12 @@
+[Unit]
+Description=PiAQ Service
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/python3.7 /home/pi/dev/main.py > /home/pi/piaq-service.log 2>&1
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target

@@ -2,6 +2,7 @@
 
 import time
 import sys
+import signal
 from timeloop import Timeloop
 from datetime import timedelta
 
@@ -19,7 +20,7 @@ def main():
     oled = get_oled()
     tl = Timeloop()
 
-    @tl.job(interval=timedelta(seconds=5))
+    @tl.job(interval=timedelta(seconds=2))
     def get_all_data():
         temp, hum, press = get_env_data(env_sensor)
         pm25, pm10 = get_pm_data(pm_sensor)
@@ -41,14 +42,19 @@ def main():
         )
 
     tl.start()
-    try:
-        while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
+
+    def shutdown():
         tl.stop()
         oled_shutdown(oled)
         pm_sensor.sleep()
         logger.info("Shutting Down...")
+
+    try:
+        signal.signal(signal.SIGTERM, shutdown)
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        shutdown()
     sys.exit(0)
 
 
