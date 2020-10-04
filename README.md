@@ -25,3 +25,11 @@
 5. `ssh ubuntu@$IP`, (pw: `ubuntu`), change password.
 
 6. On host machine: `./sync.sh`, on pi: `sudo ./setup.sh` (install updates and docker).
+
+## Development
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo install cross
+./run.sh
+```
