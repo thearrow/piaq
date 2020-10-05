@@ -6,8 +6,8 @@ use bme680::*;
 use hal::*;
 use std::time::Duration;
 
-pub fn init() -> Bme680<I2cdev, Delay> {
-    let i2c = I2cdev::new("/dev/i2c-1").unwrap();
+pub fn init(port: &str) -> Bme680<I2cdev, Delay> {
+    let i2c = I2cdev::new(port).unwrap();
     let mut dev = Bme680::init(i2c, Delay {}, I2CAddress::Primary).unwrap();
 
     let settings = SettingsBuilder::new()
@@ -16,7 +16,7 @@ pub fn init() -> Bme680<I2cdev, Delay> {
         .with_temperature_oversampling(OversamplingSetting::OS8x)
         .with_temperature_filter(IIRFilterSize::Size3)
         .with_temperature_offset(-5.0)
-        .with_gas_measurement(Duration::from_millis(2000), 320, 20)
+        .with_gas_measurement(Duration::from_millis(2000), 320, 25)
         .with_run_gas(true)
         .build();
 
