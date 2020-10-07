@@ -3,6 +3,10 @@
 # updates
 apt update
 apt upgrade --yes
+apt autoremove --yes
+
+# utilities
+apt install --yes i2c-tools htop python3 python3-pip
 
 # docker
 if ! type "docker" > /dev/null; then
@@ -13,5 +17,9 @@ else
     echo "docker already installed. skipping."
 fi
 
-# utilities
-apt install --yes i2c-tools htop
+# docker-compose
+if ! type "docker-compose" > /dev/null; then
+    pip3 install docker-compose
+else 
+    echo "docker-compose already installed. skipping."
+fi

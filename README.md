@@ -29,7 +29,14 @@
 ## Development
 
 ```sh
+# install docker: https://docs.docker.com/get-docker/
+
+# install rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# install cross for cross-compilation (requires docker)
 cargo install cross
+
+# compile locally, sync to pi, and run
 ./run.sh
 ```

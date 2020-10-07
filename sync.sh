@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rsync -rhP --exclude=.git --exclude=.vscode . pi:/home/ubuntu/piaq
+rsync -rauLhP --exclude=.git --exclude=.vscode --exclude=target . pi:/home/ubuntu/piaq
