@@ -27,11 +27,28 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
         "overrides": []
       },
-      "fill": 1,
+      "fill": 0,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
@@ -71,13 +88,17 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  temperature\nFROM piaq\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  temperature AS \"Temperature\"\nFROM piaq\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
           "refId": "A",
           "select": [
             [
               {
                 "params": ["temperature"],
                 "type": "column"
+              },
+              {
+                "params": ["Temperature"],
+                "type": "alias"
               }
             ]
           ],
@@ -93,16 +114,71 @@
           ]
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(31, 96, 196, 0.05)",
+          "line": false,
+          "lineColor": "rgba(31, 96, 196, 0.6)",
+          "op": "lt",
+          "value": 58,
+          "yaxis": "left"
+        },
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(196, 22, 42, 0.05)",
+          "line": false,
+          "lineColor": "rgba(31, 96, 196, 0.6)",
+          "op": "gt",
+          "value": 82,
+          "yaxis": "left"
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Temp",
+      "title": "Temperature",
       "tooltip": {
         "shared": true,
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "binary": {
+              "left": "Temperature",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "1.8"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Temperature",
+            "binary": {
+              "left": "Temperature * 1.8",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "32"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": true
+          }
+        }
+      ],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -113,12 +189,12 @@
       },
       "yaxes": [
         {
-          "decimals": 0,
-          "format": "celsius",
+          "decimals": 1,
+          "format": "fahrenheit",
           "label": "",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "90",
+          "min": "50",
           "show": true
         },
         {
@@ -183,20 +259,24 @@
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
-      "steppedLine": false,
+      "steppedLine": true,
       "targets": [
         {
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  pm25\nFROM piaq\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  pm25 AS \"PM2.5\"\nFROM piaq\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
           "refId": "A",
           "select": [
             [
               {
                 "params": ["pm25"],
                 "type": "column"
+              },
+              {
+                "params": ["PM2.5"],
+                "type": "alias"
               }
             ]
           ],
@@ -216,13 +296,17 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  pm10\nFROM piaq\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  pm10 AS \"PM10\"\nFROM piaq\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
           "refId": "B",
           "select": [
             [
               {
                 "params": ["pm10"],
                 "type": "column"
+              },
+              {
+                "params": ["PM10"],
+                "type": "alias"
               }
             ]
           ],
@@ -263,7 +347,7 @@
           "label": "",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -359,7 +443,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Gas",
+      "title": "Gas Resistance",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -410,7 +494,7 @@
         },
         "overrides": []
       },
-      "fill": 1,
+      "fill": 0,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
@@ -450,13 +534,17 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  humidity\nFROM piaq\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  humidity AS \"Humidity\"\nFROM piaq\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
           "refId": "A",
           "select": [
             [
               {
                 "params": ["humidity"],
                 "type": "column"
+              },
+              {
+                "params": ["Humidity"],
+                "type": "alias"
               }
             ]
           ],
@@ -472,7 +560,28 @@
           ]
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(196, 22, 42, 0.05)",
+          "line": false,
+          "lineColor": "rgba(31, 96, 196, 0.6)",
+          "op": "lt",
+          "value": 30,
+          "yaxis": "left"
+        },
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(31, 96, 196, 0.05)",
+          "line": false,
+          "lineColor": "rgba(31, 96, 196, 0.6)",
+          "op": "gt",
+          "value": 60,
+          "yaxis": "left"
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -609,7 +718,7 @@
       },
       "yaxes": [
         {
-          "decimals": 0,
+          "decimals": 1,
           "format": "pressurehpa",
           "label": "",
           "logBase": 1,
@@ -640,12 +749,12 @@
     "list": []
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "PIAQ",
   "uid": "J-lNIWcGk",
-  "version": 8
+  "version": 24
 }
