@@ -68,7 +68,7 @@
         "values": true
       },
       "lines": true,
-      "linewidth": 1,
+      "linewidth": 3,
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -93,11 +93,15 @@
           "select": [
             [
               {
-                "params": ["temperature"],
+                "params": [
+                  "temperature"
+                ],
                 "type": "column"
               },
               {
-                "params": ["Temperature"],
+                "params": [
+                  "Temperature"
+                ],
                 "type": "alias"
               }
             ]
@@ -118,7 +122,7 @@
         {
           "colorMode": "custom",
           "fill": true,
-          "fillColor": "rgba(31, 96, 196, 0.05)",
+          "fillColor": "rgba(31, 96, 196, 0.1)",
           "line": false,
           "lineColor": "rgba(31, 96, 196, 0.6)",
           "op": "lt",
@@ -128,7 +132,7 @@
         {
           "colorMode": "custom",
           "fill": true,
-          "fillColor": "rgba(196, 22, 42, 0.05)",
+          "fillColor": "rgba(196, 22, 42, 0.1)",
           "line": false,
           "lineColor": "rgba(31, 96, 196, 0.6)",
           "op": "gt",
@@ -224,7 +228,7 @@
         },
         "overrides": []
       },
-      "fill": 1,
+      "fill": 2,
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
@@ -271,11 +275,15 @@
           "select": [
             [
               {
-                "params": ["pm25"],
+                "params": [
+                  "pm25"
+                ],
                 "type": "column"
               },
               {
-                "params": ["PM2.5"],
+                "params": [
+                  "PM2.5"
+                ],
                 "type": "alias"
               }
             ]
@@ -301,11 +309,15 @@
           "select": [
             [
               {
-                "params": ["pm10"],
+                "params": [
+                  "pm10"
+                ],
                 "type": "column"
               },
               {
-                "params": ["PM10"],
+                "params": [
+                  "PM10"
+                ],
                 "type": "alias"
               }
             ]
@@ -377,7 +389,7 @@
         },
         "overrides": []
       },
-      "fill": 1,
+      "fill": 0,
       "fillGradient": 0,
       "gridPos": {
         "h": 5,
@@ -397,7 +409,7 @@
         "values": false
       },
       "lines": true,
-      "linewidth": 1,
+      "linewidth": 3,
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -415,14 +427,17 @@
         {
           "format": "time_series",
           "group": [],
+          "hide": false,
           "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  gas\nFROM piaq\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  (gas * -1) as gas\nFROM piaq\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
           "refId": "A",
           "select": [
             [
               {
-                "params": ["gas"],
+                "params": [
+                  "gas"
+                ],
                 "type": "column"
               }
             ]
@@ -443,12 +458,13 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Gas Resistance",
+      "title": "Approx VOCs",
       "tooltip": {
         "shared": true,
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -514,7 +530,7 @@
         "values": true
       },
       "lines": true,
-      "linewidth": 1,
+      "linewidth": 3,
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -539,11 +555,15 @@
           "select": [
             [
               {
-                "params": ["humidity"],
+                "params": [
+                  "humidity"
+                ],
                 "type": "column"
               },
               {
-                "params": ["Humidity"],
+                "params": [
+                  "Humidity"
+                ],
                 "type": "alias"
               }
             ]
@@ -564,7 +584,7 @@
         {
           "colorMode": "custom",
           "fill": true,
-          "fillColor": "rgba(196, 22, 42, 0.05)",
+          "fillColor": "rgba(196, 22, 42, 0.1)",
           "line": false,
           "lineColor": "rgba(31, 96, 196, 0.6)",
           "op": "lt",
@@ -574,7 +594,7 @@
         {
           "colorMode": "custom",
           "fill": true,
-          "fillColor": "rgba(31, 96, 196, 0.05)",
+          "fillColor": "rgba(31, 96, 196, 0.1)",
           "line": false,
           "lineColor": "rgba(31, 96, 196, 0.6)",
           "op": "gt",
@@ -636,7 +656,7 @@
         },
         "overrides": []
       },
-      "fill": 1,
+      "fill": 0,
       "fillGradient": 0,
       "gridPos": {
         "h": 5,
@@ -656,7 +676,7 @@
         "values": false
       },
       "lines": true,
-      "linewidth": 1,
+      "linewidth": 3,
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -681,7 +701,9 @@
           "select": [
             [
               {
-                "params": ["pressure"],
+                "params": [
+                  "pressure"
+                ],
                 "type": "column"
               }
             ]
@@ -756,5 +778,5 @@
   "timezone": "",
   "title": "PIAQ",
   "uid": "J-lNIWcGk",
-  "version": 24
+  "version": 28
 }
