@@ -1,5 +1,7 @@
 # Raspberry Pi Air Quality
 
+![Example PIAQ Dashboard](./piaq.png)
+
 ## Hardware Requirements
 
 - Raspberry Pi 4
