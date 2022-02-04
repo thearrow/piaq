@@ -668,6 +668,27 @@
       "yaxis": {
         "align": false
       }
+    },
+    {
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "id": 8,
+      "options": {
+        "limit": 10,
+        "navigateAfter": "10m",
+        "navigateBefore": "10m",
+        "onlyFromThisDashboard": true,
+        "onlyInTimeRange": false,
+        "showTags": true,
+        "showTime": true,
+        "showUser": false
+      },
+      "title": "Events",
+      "type": "annolist"
     }
   ],
   "refresh": "30s",
@@ -685,6 +706,6 @@
   "timezone": "",
   "title": "PIAQ",
   "uid": "J-lNIWcGk",
-  "version": 34,
+  "version": 35,
   "weekStart": ""
 }
