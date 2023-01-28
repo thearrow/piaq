@@ -6,9 +6,10 @@ use bme680::*;
 use hal::*;
 use std::time::Duration;
 
-pub fn init(port: &str) -> Bme680<I2cdev, Delay> {
+pub fn init(port: &str) -> (Bme680<I2cdev, Delay>, Delay) {
     let i2c = I2cdev::new(port).unwrap();
-    let mut dev = Bme680::init(i2c, Delay {}, I2CAddress::Primary).unwrap();
+    let mut delay = Delay {};
+    let mut dev = Bme680::init(i2c, &mut delay, I2CAddress::Primary).unwrap();
 
     let settings = SettingsBuilder::new()
         .with_humidity_oversampling(OversamplingSetting::OS2x)
@@ -20,10 +21,11 @@ pub fn init(port: &str) -> Bme680<I2cdev, Delay> {
         .with_run_gas(true)
         .build();
 
-    dev.set_sensor_settings(settings).unwrap();
+    dev.set_sensor_settings(&mut delay, settings).unwrap();
     // burn one reading for outliers
-    dev.set_sensor_mode(PowerMode::ForcedMode).unwrap();
-    let (_data, _state) = dev.get_sensor_data().unwrap();
+    dev.set_sensor_mode(&mut delay, PowerMode::ForcedMode)
+        .unwrap();
+    let (_data, _state) = dev.get_sensor_data(&mut delay).unwrap();
 
-    dev
+    (dev, delay)
 }
